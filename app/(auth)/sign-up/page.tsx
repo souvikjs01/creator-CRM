@@ -5,21 +5,20 @@ import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { Utensils } from 'lucide-react'
 import Link from 'next/link'
-import { signInAction, signUpAction } from '@/lib/actions/auth'
+import { signUpAction } from '@/lib/actions/auth'
 import { useForm } from '@conform-to/react'
 import { parseWithZod } from '@conform-to/zod'
-import { signInSchema } from '@/lib/zodSchemas'
+import { signUpSchema } from '@/lib/zodSchemas'
 import { Label } from '@/components/ui/label'
 import SubmitButton from '@/components/loader/SubmitButton'
 
-
 export default function page() {
-  const [lastResult, action] = useActionState(signInAction, undefined);
+  const [lastResult, action] = useActionState(signUpAction, undefined);
   const [form, fields] = useForm({
     lastResult,
     onValidate({formData}) {
         return parseWithZod(formData, {
-            schema: signInSchema
+            schema: signUpSchema
         })
     },
     shouldValidate: 'onBlur',
@@ -36,31 +35,59 @@ export default function page() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">
-          Welcome to Creator CRM
+        <h1 className="text-[32px] font-bold text-center text-gray-900 mb-2">
+          Create account to Creator CRM
         </h1>
 
         {/* Subheading */}
         <p className="text-center text-gray-600 mb-8">
-          Sign in to Creator CRM
+          Sign up to Creator CRM
         </p>
 
         {/* Form */}
         <form 
-          id={form.id}
-          action={action}
-          onSubmit={form.onSubmit} 
-          noValidate
-          className="space-y-6"
+            id={form.id} 
+            action={action}
+            onSubmit={form.onSubmit} 
+            noValidate
+            className="space-y-4"
         >
+          <div className="space-y-2">
+            <Label className="block text-sm font-medium text-gray-900">
+              First Name
+            </Label>
+            <Input
+              type="text"
+              name={fields.firstName.name}
+              placeholder="Alex"
+              className="w-full h-12 px-4 text-base bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              required
+            />
+            <p className="text-sm text-red-500">{fields.firstName.errors}</p>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="block text-sm font-medium text-gray-900">
+              Last Name
+            </Label>
+            <Input
+              type="text"
+              name={fields.lastName.name}
+              placeholder="Hales"
+              className="w-full h-12 px-4 text-base bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+              required
+            />
+            <p className="text-sm text-red-500">{fields.lastName.errors}</p>
+          </div>
+
           <div className="space-y-2">
             <Label className="block text-sm font-medium text-gray-900">
               Email Address
             </Label>
             <Input
               type="email"
-              placeholder="restaurant@example.com"
               name={fields.email.name}
+              placeholder="alex@example.com"
               className="w-full h-12 px-4 text-base bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
@@ -68,9 +95,9 @@ export default function page() {
           </div>
 
           <div className="space-y-2">
-            <Label className="block text-sm font-medium text-gray-900">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-900">
               Password
-            </Label>
+            </label>
             <Input
               type="password"
               placeholder="Enter your password"
@@ -81,14 +108,14 @@ export default function page() {
             <p className="text-sm text-red-500">{fields.password.errors}</p>
           </div>
 
-          {/* Sign In Button */}
-          <SubmitButton text='Sign in'/>
+          <SubmitButton text='Sign up'/>
         </form>
 
+        {/* Sign Up Link */}
         <p className="text-center text-gray-600 mt-8">
-          New account?{' '}
-          <Link href="/sign-up" className="text-red-500 hover:text-red-600 font-semibold">
-            Create an account
+          Already have one?{' '}
+          <Link href="/sign-in" className="text-[#FF3B3F] hover:text-red-600 font-semibold">
+            Sign In
           </Link>
         </p>
       </Card>
