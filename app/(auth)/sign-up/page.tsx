@@ -35,7 +35,7 @@ export default function page() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-[32px] font-bold text-center text-gray-900">
+        <h1 className="text-[32px] font-bold text-center text-soft-black">
           Create account to Creator CRM
         </h1>
 
@@ -53,7 +53,7 @@ export default function page() {
             className="space-y-4"
         >
           <div className="space-y-2">
-            <Label className="block text-sm font-medium text-gray-900">
+            <Label className="block text-sm font-medium text-soft-black">
               First Name
             </Label>
             <Input
@@ -63,11 +63,11 @@ export default function page() {
               className="w-full h-12 px-4 text-base bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
-            <p className="text-sm text-red-500">{fields.firstName.errors}</p>
+            <p className="text-sm text-primary">{fields.firstName.errors}</p>
           </div>
 
           <div className="space-y-2">
-            <Label className="block text-sm font-medium text-gray-900">
+            <Label className="block text-sm font-medium text-soft-black">
               Last Name
             </Label>
             <Input
@@ -77,11 +77,11 @@ export default function page() {
               className="w-full h-12 px-4 text-base bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
-            <p className="text-sm text-red-500">{fields.lastName.errors}</p>
+            <p className="text-sm text-primary">{fields.lastName.errors}</p>
           </div>
 
           <div className="space-y-2">
-            <Label className="block text-sm font-medium text-gray-900">
+            <Label className="block text-sm font-medium text-soft-black">
               Email Address
             </Label>
             <Input
@@ -95,7 +95,7 @@ export default function page() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-900">
+            <label htmlFor="password" className="block text-sm font-medium text-soft-black">
               Password
             </label>
             <Input

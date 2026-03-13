@@ -9,6 +9,9 @@ export default async function requiredUser() {
         redirect("/sign-in")
     }
 
-    console.log("data: ", data)
+    if(!data.user.confirmed_at) {
+        redirect("/sign-up")
+    }
+
     return data.user;
 }

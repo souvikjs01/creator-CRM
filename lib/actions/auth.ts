@@ -83,3 +83,14 @@ export async function signInAction(prevState: any, formData: FormData) {
 
     redirect("/dashboard")
 }
+
+export async function signOutAction() {
+    const supabase = await createClient()
+
+    const { error } = await supabase.auth.signOut();
+    if(error) {
+        redirect("/not-found")
+    }
+
+    redirect("/sign-in")
+}
