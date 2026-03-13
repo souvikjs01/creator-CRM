@@ -11,6 +11,7 @@ import { parseWithZod } from '@conform-to/zod'
 import { signInSchema } from '@/lib/zodSchemas'
 import { Label } from '@/components/ui/label'
 import SubmitButton from '@/components/loader/SubmitButton'
+import Image from 'next/image'
 
 
 export default function page() {
@@ -29,19 +30,18 @@ export default function page() {
   return (
     <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-md p-8 shadow-lg rounded-sm">
-        <div className="flex justify-center mb-6">
-          <div className="w-24 h-24 bg-red-500 rounded-2xl flex items-center justify-center">
-            <Utensils className="w-12 h-12 text-white" strokeWidth={1.5} />
+        <div className="flex justify-center">
+          <div className="rounded-2xl flex items-center justify-center">
+            <Image src="/grangou-logo.png" alt='logo' width={80} height={80} className=' rounded-md'/>
           </div>
         </div>
 
-        {/* Heading */}
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-2">
+        <h1 className="text-3xl font-bold text-center text-soft-black">
           Welcome to Creator CRM
         </h1>
 
         {/* Subheading */}
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-center text-gray-600">
           Sign in to Creator CRM
         </p>
 
@@ -51,10 +51,10 @@ export default function page() {
           action={action}
           onSubmit={form.onSubmit} 
           noValidate
-          className="space-y-6"
+          className="space-y-4"
         >
           <div className="space-y-2">
-            <Label className="block text-sm font-medium text-gray-900">
+            <Label className="block text-sm font-medium text-soft-black">
               Email Address
             </Label>
             <Input
@@ -64,11 +64,11 @@ export default function page() {
               className="w-full h-12 px-4 text-base bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
-            <p className="text-sm text-red-500">{fields.email.errors}</p>
+            <p className="text-sm text-primary">{fields.email.errors}</p>
           </div>
 
           <div className="space-y-2">
-            <Label className="block text-sm font-medium text-gray-900">
+            <Label className="block text-sm font-medium text-soft-black">
               Password
             </Label>
             <Input
@@ -78,16 +78,16 @@ export default function page() {
               className="w-full h-12 px-4 text-base bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
               required
             />
-            <p className="text-sm text-red-500">{fields.password.errors}</p>
+            <p className="text-sm text-primary">{fields.password.errors}</p>
           </div>
 
           {/* Sign In Button */}
           <SubmitButton text='Sign in'/>
         </form>
 
-        <p className="text-center text-gray-600 mt-8">
+        <p className="text-center text-gray-600">
           New account?{' '}
-          <Link href="/sign-up" className="text-red-500 hover:text-red-600 font-semibold">
+          <Link href="/sign-up" className="text-primary hover:text-red-500 font-semibold">
             Create an account
           </Link>
         </p>

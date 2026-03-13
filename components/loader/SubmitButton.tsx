@@ -1,5 +1,4 @@
 "use client"
-import React from 'react'
 import { useFormStatus } from 'react-dom'
 import { Button } from '../ui/button'
 import { Loader2 } from 'lucide-react'
@@ -22,11 +21,11 @@ export default function SubmitButton({ text, variant }: iAppProps) {
   return (
     <>
         {pending ? (
-            <Button disabled className="w-full" variant={variant}>
+            <Button disabled className="w-full bg-primary" variant={variant}>
             <Loader2 className="size-4 mr-2 animate-spin" /> Please wait...
             </Button>
         ) : (
-            <Button type="submit" className="w-full" variant={variant}>
+            <Button type="submit" className="w-full bg-primary" variant={variant}>
             {text}
             </Button>
         )}

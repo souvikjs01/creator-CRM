@@ -3,7 +3,6 @@
 import { useActionState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
-import { Utensils } from 'lucide-react'
 import Link from 'next/link'
 import { signUpAction } from '@/lib/actions/auth'
 import { useForm } from '@conform-to/react'
@@ -11,6 +10,7 @@ import { parseWithZod } from '@conform-to/zod'
 import { signUpSchema } from '@/lib/zodSchemas'
 import { Label } from '@/components/ui/label'
 import SubmitButton from '@/components/loader/SubmitButton'
+import Image from 'next/image'
 
 export default function page() {
   const [lastResult, action] = useActionState(signUpAction, undefined);
@@ -28,19 +28,19 @@ export default function page() {
   return (
     <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-md p-8 shadow-lg rounded-sm">
-        <div className="flex justify-center mb-6">
-          <div className="w-24 h-24 bg-red-500 rounded-2xl flex items-center justify-center">
-            <Utensils className="w-12 h-12 text-white" strokeWidth={1.5} />
+        <div className="flex justify-center">
+          <div className="bg-red-500 rounded-2xl flex items-center justify-center">
+            <Image src="/grangou-logo.png" alt='logo' width={80} height={80} className=' rounded-md'/>
           </div>
         </div>
 
         {/* Heading */}
-        <h1 className="text-[32px] font-bold text-center text-gray-900 mb-2">
+        <h1 className="text-[32px] font-bold text-center text-gray-900">
           Create account to Creator CRM
         </h1>
 
         {/* Subheading */}
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-center text-gray-600">
           Sign up to Creator CRM
         </p>
 
@@ -112,9 +112,9 @@ export default function page() {
         </form>
 
         {/* Sign Up Link */}
-        <p className="text-center text-gray-600 mt-8">
+        <p className="text-center text-gray-600">
           Already have one?{' '}
-          <Link href="/sign-in" className="text-[#FF3B3F] hover:text-red-600 font-semibold">
+          <Link href="/sign-in" className="text-primary hover:text-red-500 font-semibold">
             Sign In
           </Link>
         </p>
