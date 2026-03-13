@@ -34,6 +34,8 @@
     --color-secondary: #FFFFFF;
     --color-neutral-gray: #F4F4F4;
     --color-soft-black: #222222; 
+    --color-soft-yellow: #FFD166;
+    --color--mint-green: #06D6A0;
     --color-primary-foreground: var(--primary-foreground);
     --color-primary: #FF3B3F;
     --color-popover-foreground: var(--popover-foreground);

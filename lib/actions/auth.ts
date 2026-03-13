@@ -34,7 +34,7 @@ export async function signUpAction(prevState: any, formData: FormData) {
         })
     }
 
-    redirect("/sign-in")
+    redirect("/verify")
 }
 
 export async function signInAction(prevState: any, formData: FormData) {
