@@ -17,3 +17,65 @@ export const signInSchema = z.object({
 })
 
 export type SignInType = z.infer<typeof signUpSchema>
+
+// onboarding
+export const creatorOnboardingSchema = z.object({
+    creator_handle: z.string().url("Must be a valid URL")
+                .refine(
+                    (url) =>
+                        url.includes("instagram.com") ||
+                        url.includes("tiktok.com") ||
+                        url.includes("youtube.com"),
+                    {
+                        message: "Must be a valid Instagram, TikTok, or YouTube profile link",
+                    }
+    ),
+    platform: z.enum(["instagram", "tiktok", "youtube"]),
+    tier: z.enum(["nano", "micro", "macro", "mega"]),
+    niche: z.enum([
+        "food",
+        "lifestyle",
+        "college life",
+        "dating",
+        "genz entertainment",
+        "fitness",
+        "travel",
+    ]),
+    follower_count: z.number().min(0, "Must be positive"),
+    engagement_rate: z.number().min(0, "Must be positive"),
+    contract_status: z.enum(["active", "inactive", "negotiating"]),
+    rate: z.number().min(0, "Rate must be positive"),
+    notes: z.string().max(500, "Notes cannot exceed 500 characters").optional(),
+    full_name: z.string().min(2).max(100)
+});
+
+export type CreatorOnboardingInput = z.infer<typeof creatorOnboardingSchema>;
+
+export enum CONTRACT_STATUS {
+    ACTIVE = "active",
+    INACTIVE = "inactive",
+    NEGOTIATING = "negotiating"
+}
+
+export enum NICHES {
+    FOOD = "food",
+    LIFE_STYLE = "lifestyle",
+    COLLEGE_LIFE = "college life",
+    DATING = "dating",
+    GENZ_ENTERTAINMENT = "genz entertainment",
+    FITNESS = "fitness",
+    TRAVEL = "travel",
+}
+
+export enum TIERS {
+    NANO = "nano", 
+    MICRO = "micro", 
+    MACRO = "macro", 
+    MEGA = "mega"
+}
+
+export enum PLATFORMS {
+    INSTAGRAM = "instagram", 
+    TIKTOK = "tiktok", 
+    YOUTUBE = "youtube"
+}
