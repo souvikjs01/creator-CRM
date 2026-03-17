@@ -22,7 +22,7 @@ export async function onboardingAction(prevState: any, formData: FormData) {
     if(submission.status !== 'success') {
         return submission.reply()
     }
-
+    
     const { error } = await supabase.from("creators").update({
         handle: submission.value.creator_handle,
         platform: submission.value.platform,
@@ -34,7 +34,8 @@ export async function onboardingAction(prevState: any, formData: FormData) {
         rate: submission.value.rate,
         notes: submission.value.notes,
         full_name: `${user.user_metadata.firstname} ${user.user_metadata.lastname}`
-    }).eq("id", user.id)
+    })
+    .eq("id", user.id)
 
     if (error) {
         console.log(error)
