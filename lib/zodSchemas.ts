@@ -20,16 +20,7 @@ export type SignInType = z.infer<typeof signUpSchema>
 
 // onboarding
 export const creatorOnboardingSchema = z.object({
-    creator_handle: z.string().url("Must be a valid URL")
-                .refine(
-                    (url) =>
-                        url.includes("instagram.com") ||
-                        url.includes("tiktok.com") ||
-                        url.includes("youtube.com"),
-                    {
-                        message: "Must be a valid Instagram, TikTok, or YouTube profile link",
-                    }
-    ),
+    creator_handle: z.string().min(2).max(100),
     platform: z.enum(["instagram", "tiktok", "youtube"]),
     tier: z.enum(["nano", "micro", "macro", "mega"]),
     niche: z.enum([
@@ -45,8 +36,7 @@ export const creatorOnboardingSchema = z.object({
     engagement_rate: z.number().min(0, "Must be positive"),
     contract_status: z.enum(["active", "inactive", "negotiating"]),
     rate: z.number().min(0, "Rate must be positive"),
-    notes: z.string().max(500, "Notes cannot exceed 500 characters").optional(),
-    full_name: z.string().min(2).max(100)
+    notes: z.string().max(500, "Notes cannot exceed 500 characters").optional()
 });
 
 export type CreatorOnboardingInput = z.infer<typeof creatorOnboardingSchema>;
