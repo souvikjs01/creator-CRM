@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Toaster } from "@/components/ui/sonner";
 import { Open_Sans } from "next/font/google"
 import "./globals.css";
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         className={`${openSans.className} antialiased`}
       >
         {children}
+        <Toaster richColors closeButton theme="light"/>
       </body>
     </html>
   );
