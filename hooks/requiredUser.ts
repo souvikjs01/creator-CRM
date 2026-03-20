@@ -9,7 +9,7 @@ export default async function requiredUser() {
         redirect("/sign-in")
     }
 
-    if(!data.user.confirmed_at) {
+    if(!data.user.email_confirmed_at) {
         redirect("/sign-up")
     }
 

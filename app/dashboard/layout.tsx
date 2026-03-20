@@ -16,8 +16,9 @@ async function getUserData(id: string) {
 }
 
 export default async function layout({children}: { children: React.ReactNode}) {
-  const session = await requiredUser();
-  const data = await getUserData(session.id as string)
+  const user = await requiredUser();
+  const data = await getUserData(user.id as string)
+  
   return (
     <div>
         {children}

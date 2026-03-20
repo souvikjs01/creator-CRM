@@ -7,10 +7,9 @@ import {
     CardHeader, 
     CardTitle 
 } from '@/components/ui/card'
-import { AlertCircle, ArrowLeft, Mail } from 'lucide-react'
+import { AlertCircle, ArrowLeft } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
 
 export default function Verify() {
   return (
