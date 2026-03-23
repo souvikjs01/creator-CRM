@@ -20,8 +20,8 @@ export const links = [
     },
     {
         id: 1,
-        name: "Creator Profile",
-        href: "/dashboard/profile",
+        name: "Creators",
+        href: "/dashboard/creators",
         icon: User,
     },
     {
