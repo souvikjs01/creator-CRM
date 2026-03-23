@@ -21,24 +21,22 @@ import { createClient } from "@/lib/supabase/server";
 import { Menu, User2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
-async function getUserData(id: string) {
-    const supabase = await createClient()
+// async function getUserData(id: string) {
+//     const supabase = await createClient()
 
-    const { data: creator } = await supabase.from("creators")
-        .select("handle, platform, tier, niche, follower_count, engagement_rate, contract_status, rate, notes, full_name")
-        .eq("id", id)
-        .single()
+//     const { data: creator } = await supabase.from("creators")
+//         .select("handle, platform, tier, niche, follower_count, engagement_rate, contract_status, rate, notes, full_name")
+//         .eq("id", id)
+//         .single()
 
-    if (!creator?.handle || !creator?.platform || !creator?.tier || !creator?.niche || !creator?.follower_count || !creator?.engagement_rate || !creator?.contract_status || !creator.rate || !creator?.notes || !creator?.full_name) {
-        redirect("/onboarding")
-    }
-}
+//     if (!creator?.handle || !creator?.platform || !creator?.tier || !creator?.niche || !creator?.follower_count || !creator?.engagement_rate || !creator?.contract_status || !creator.rate || !creator?.notes || !creator?.full_name) {
+//         redirect("/onboarding")
+//     }
+// }
 
 export default async function layout({children}: { children: React.ReactNode}) {
   const user = await requiredUser();
-  const data = await getUserData(user.id as string)
   
   return (
     <>

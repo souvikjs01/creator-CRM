@@ -28,7 +28,7 @@ export async function signUpAction(prevState: any, formData: FormData) {
 
     // Supabase error
     if (error) {
-        console.log("err", error);
+        console.error("err", error);
         return submission.reply({
             formErrors: [error.message],
         })
@@ -55,26 +55,30 @@ export async function signInAction(prevState: any, formData: FormData) {
 
     // Supabase error
     if (error) {
-        console.log("err", error);
+        console.error("err", error);
         return submission.reply({
             formErrors: [error.message],
         })
     }
 
     const { data: existingUser } = await supabase
-        .from("creators")
+        .from("users")
         .select("*")
         .eq("email", submission.value.email)
         .limit(1)
         .single();
 
+    const { data: { user } } = await supabase.auth.getUser()
+
     if(!existingUser) {
-        const { error: insertErr } = await supabase.from("creators").insert({
-            email: submission.value.email
+        // fresh user
+        const { error: insertErr } = await supabase.from("users").insert({
+            email: submission.value.email,
+            full_name: `${user?.user_metadata.firstname} ${user?.user_metadata.lastname}`
         })
 
         if(insertErr) {
-            console.log("signin insert err: ", insertErr);
+            console.error("signin insert err: ", insertErr);
             return submission.reply({
                 formErrors: [insertErr.message],
             })
