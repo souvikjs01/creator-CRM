@@ -18,8 +18,10 @@ export const signInSchema = z.object({
 
 export type SignInType = z.infer<typeof signUpSchema>
 
-// onboarding
-export const creatorOnboardingSchema = z.object({
+// add-creator schema
+export const creatorSchema = z.object({
+    full_name: z.string().min(2).max(100),
+    email: z.string().email(),
     creator_handle: z.string().min(2).max(100),
     platform: z.enum(["instagram", "tiktok", "youtube"]),
     tier: z.enum(["nano", "micro", "macro", "mega"]),
@@ -39,7 +41,7 @@ export const creatorOnboardingSchema = z.object({
     notes: z.string().max(500, "Notes cannot exceed 500 characters").optional()
 });
 
-export type CreatorOnboardingInput = z.infer<typeof creatorOnboardingSchema>;
+export type CreatorOnboardingInput = z.infer<typeof creatorSchema>;
 
 export enum CONTRACT_STATUS {
     ACTIVE = "active",
