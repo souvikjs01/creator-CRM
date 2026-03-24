@@ -1,11 +1,10 @@
-/*
 "use server"
 import { redirect } from "next/navigation";
 import { createClient } from "../supabase/server";
 import { parseWithZod } from "@conform-to/zod";
-import { creatorOnboardingSchema } from "../zodSchemas";
+import { creatorSchema } from "../zodSchemas";
 
-export async function onboardingAction(prevState: any, formData: FormData) {
+export async function addCreatorAction(prevState: any, formData: FormData) {
     const supabase = await createClient()
 
     const {
@@ -17,14 +16,16 @@ export async function onboardingAction(prevState: any, formData: FormData) {
     }
 
     const submission = parseWithZod(formData, {
-        schema: creatorOnboardingSchema
+        schema: creatorSchema
     })
     
     if(submission.status !== 'success') {
         return submission.reply()
     }
     
-    const { error } = await supabase.from("creators").update({
+    const { error } = await supabase.from("creators").insert({
+        full_name: submission.value.full_name,
+        email: submission.value.email,
         handle: submission.value.creator_handle,
         platform: submission.value.platform,
         tier: submission.value.tier,
@@ -34,16 +35,13 @@ export async function onboardingAction(prevState: any, formData: FormData) {
         contract_status: submission.value.contract_status,
         rate: submission.value.rate,
         notes: submission.value.notes,
-        full_name: `${user.user_metadata.firstname} ${user.user_metadata.lastname}`
+        user_id: user.id
     })
-    .eq("id", user.id)
 
     if (error) {
-        console.log(error)
+        console.error("error adding creator inside addCreatorAction: ",error)
         throw new Error(error.message)
     }
 
-    redirect("/dashboard")
+    redirect("/dashboard/creators")
 }
-
-*/
