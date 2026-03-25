@@ -3,6 +3,10 @@ import { redirect } from "next/navigation";
 import { createClient } from "../supabase/server";
 import { parseWithZod } from "@conform-to/zod";
 import { creatorSchema } from "../zodSchemas";
+import { Database } from "@/types/database"
+
+export type Creator = Database["public"]["Tables"]["creators"]["Row"]
+
 
 export async function addCreatorAction(prevState: any, formData: FormData) {
     const supabase = await createClient()
@@ -44,4 +48,29 @@ export async function addCreatorAction(prevState: any, formData: FormData) {
     }
 
     redirect("/dashboard/creators")
+}
+
+export async function getAllCreators() {
+    const supabase = await createClient()
+
+    const {
+        data: { user }
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+        redirect("/sign-in")
+    }
+
+    const { data, error } = await supabase
+        .from("creators")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+
+    if (error) {
+        console.error("Error fetching creators: ", error)
+        throw new Error(error.message)
+    }
+
+    return data
 }
