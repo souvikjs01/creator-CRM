@@ -10,6 +10,7 @@ import {
 import { dateFormat } from "@/lib/utils";
 import { Badge } from "../ui/badge";
 import CreatorActions from "./CreatorActions";
+import Link from "next/link";
 
 
 export default async function CreatorList() {
@@ -36,7 +37,11 @@ export default async function CreatorList() {
           <TableBody>
             {creatorData.map((creator) => (
               <TableRow key={creator.id}>
-                <TableCell className=" capitalize">{creator.full_name}</TableCell>
+                <TableCell className=" capitalize">
+                  <Link href={`/dashboard/creators/${creator.id}`}>
+                   {creator.full_name}
+                  </Link>          
+                </TableCell>
                 <TableCell className=" capitalize">{creator.platform}</TableCell>
                 <TableCell>@{creator.handle}</TableCell>
                 <TableCell className=" capitalize">
