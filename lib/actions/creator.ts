@@ -74,3 +74,28 @@ export async function getAllCreators() {
 
     return data
 }
+
+export async function getCreatorById(id: string) {
+    const supabase = await createClient()
+
+    const {
+        data: { user }
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+        redirect("/sign-in")
+    }
+
+    const { data, error } = await supabase
+        .from("creators")
+        .select("*")
+        .eq("id", id)
+        .single()
+
+    if (error) {
+        console.error("Error fetching creator:", error)
+        throw new Error(error.message)
+    }
+
+    return data
+}
