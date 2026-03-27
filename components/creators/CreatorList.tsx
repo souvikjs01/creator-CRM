@@ -20,7 +20,7 @@ export default async function CreatorList() {
       {creatorData.length === 0 ? (
         <div>
           {/* todo- create a empty state component */}
-          no data
+          no creator
         </div>
       ) : (
         <Table>

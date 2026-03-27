@@ -99,3 +99,29 @@ export async function getCreatorById(id: string) {
 
     return data
 }
+
+
+export async function deleteCreatorById(id: string) {
+    const supabase = await createClient()
+
+    const {
+        data: { user }
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+        redirect("/sign-in")
+    }
+
+    
+    const { error } = await supabase
+        .from("creators")
+        .delete()
+        .eq("id", id)
+
+    if (error) {
+        console.error("Error deleting creator:", error)
+        throw new Error(error.message)
+    }
+
+    redirect("/dashboard/creators")
+}

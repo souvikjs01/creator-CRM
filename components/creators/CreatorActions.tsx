@@ -24,19 +24,19 @@ export default function CreatorActions({id}: {id: string}) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link href={`/dashboard/creators/${id}`}>
+          <Link href={`/dashboard/creators/${id}/edit`}>
             <Pencil className="size-4 mr-2" /> Edit Creator
           </Link>
         </DropdownMenuItem>
         
         <DropdownMenuItem asChild>
-          <Link href={`/dashboard/invoices/${id}/delete`}>
+          <Link href={`/dashboard/creators/${id}/remove`}>
             <Trash className="size-4 mr-2" /> Delete Creator
           </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-            <Link href={`/dashboard/invoices/${id}/paid`}>
+            <Link href={`/dashboard/creators/${id}/status`}>
               <CheckCircle className="size-4 mr-2" /> Change Status
             </Link>
         </DropdownMenuItem>
