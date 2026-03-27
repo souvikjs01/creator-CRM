@@ -23,7 +23,7 @@ export const creatorSchema = z.object({
     full_name: z.string().min(2).max(100),
     email: z.string().email(),
     creator_handle: z.string().min(2).max(100),
-    platform: z.enum(["instagram", "tiktok", "youtube"]),
+    platform: z.enum(["instagram", "tiktok"]),
     tier: z.enum(["nano", "micro", "macro", "mega"]),
     niche: z.enum([
         "food",
@@ -68,6 +68,26 @@ export enum TIERS {
 
 export enum PLATFORMS {
     INSTAGRAM = "instagram", 
-    TIKTOK = "tiktok", 
-    YOUTUBE = "youtube"
+    TIKTOK = "tiktok"
 }
+
+export const editCreatorSchema = z.object({
+    full_name: z.string().min(2).max(100).optional(),
+    creator_handle: z.string().min(2).max(100).optional(),
+    platform: z.enum(["instagram", "tiktok"]).optional(),
+    tier: z.enum(["nano", "micro", "macro", "mega"]).optional(),
+    niche: z.enum([
+        "food",
+        "lifestyle",
+        "college life",
+        "dating",
+        "genz entertainment",
+        "fitness",
+        "travel",
+    ]).optional(),
+    follower_count: z.number().min(0, "Must be positive").optional(),
+    engagement_rate: z.number().min(0, "Must be positive").optional(),
+    contract_status: z.enum(["active", "inactive", "negotiating"]).optional(),
+    rate: z.number().min(0, "Rate must be positive").optional(),
+    notes: z.string().max(500, "Notes cannot exceed 500 characters").optional()
+});

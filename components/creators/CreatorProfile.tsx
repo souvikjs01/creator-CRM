@@ -44,7 +44,6 @@ import {
 } from "recharts";
 import {
   Instagram,
-  Youtube,
   ExternalLink,
   Mail,
   Phone,
@@ -263,8 +262,6 @@ export default function CreatorProfilePage({creatorData}: {creatorData: Creator}
                   {
                     creatorData.platform === "instagram" ? (
                         <Instagram size={13} className="text-pink-400 shrink-0" />
-                    ) : creatorData.platform === "youtube" ? (
-                        <Youtube size={13} className="text-red-500 shrink-0" />
                     ) : creatorData.platform === "tiktok" ? (
                         <TikTokIcon className="text-black shrink-0 h-4 w-4" />
                     ) : null
