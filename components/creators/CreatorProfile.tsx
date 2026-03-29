@@ -209,7 +209,7 @@ export default function CreatorProfilePage({creatorData}: {creatorData: Creator}
         </div>
         <div className="flex items-center gap-2">
           <Link
-            href="/"
+            href={`/dashboard/creators/${creatorData.id}/edit`}
             className={cn(
                 buttonVariants({ variant: "outline" }),
                 "border-white/10 bg-white/5 hover:bg-white/10 gap-1.5 text-xs h-8"
@@ -219,7 +219,7 @@ export default function CreatorProfilePage({creatorData}: {creatorData: Creator}
           </Link>
 
           <Link 
-            href="/"
+            href={`/dashboard/creators/${creatorData.id}/remove`}
             className={cn(
                 buttonVariants({ variant: "outline" }),
                 "border-white/10 bg-white/5 hover:bg-white/10 gap-1.5 text-xs h-8"

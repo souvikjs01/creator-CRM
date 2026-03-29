@@ -11,6 +11,7 @@ import { dateFormat } from "@/lib/utils";
 import { Badge } from "../ui/badge";
 import CreatorActions from "./CreatorActions";
 import Link from "next/link";
+import { StatusBadge } from "./StatusBadge";
 
 
 export default async function CreatorList() {
@@ -45,7 +46,7 @@ export default async function CreatorList() {
                 <TableCell className=" capitalize">{creator.platform}</TableCell>
                 <TableCell>@{creator.handle}</TableCell>
                 <TableCell className=" capitalize">
-                  <Badge>{creator.contract_status}</Badge>
+                  <StatusBadge id={creator.id} status={creator.contract_status} />
                 </TableCell>
                 <TableCell>
                   {dateFormat(creator.created_at)}

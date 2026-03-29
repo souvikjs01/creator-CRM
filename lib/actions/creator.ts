@@ -4,6 +4,7 @@ import { createClient } from "../supabase/server";
 import { parseWithZod } from "@conform-to/zod";
 import { creatorSchema, editCreatorSchema } from "../zodSchemas";
 import { Database } from "@/types/database"
+import { revalidatePath } from "next/cache";
 
 export type Creator = Database["public"]["Tables"]["creators"]["Row"]
 
@@ -167,4 +168,29 @@ export async function editCreatorAction(prevState: any, formData: FormData) {
     }
 
     redirect("/dashboard/creators")
+}
+
+export async function updateCreatorStatus(id: string, status: string) {
+    const supabase = await createClient()
+
+    const {
+        data: { user }
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+        redirect("/sign-in")
+    }
+
+    const { error } = await supabase
+        .from("creators")
+        .update({ contract_status: status })
+        .eq("id", id)
+        .eq("user_id", user.id)
+    
+    if (error) {
+        console.error("Error updating creator status:", error);
+        throw new Error(error.message);
+    }
+    
+    revalidatePath("/dashboard/creators");
 }

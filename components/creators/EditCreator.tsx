@@ -9,7 +9,6 @@ import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import {
   CONTRACT_STATUS,
-  creatorSchema,
   editCreatorSchema,
   NICHES,
   PLATFORMS,
