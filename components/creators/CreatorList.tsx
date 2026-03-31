@@ -1,4 +1,4 @@
-import { getAllCreators } from "@/lib/actions/creator"
+import { Creator } from "@/lib/actions/creator"
 import { 
   Table, 
   TableBody, 
@@ -8,14 +8,12 @@ import {
   TableRow 
 } from "../ui/table";
 import { dateFormat } from "@/lib/utils";
-import { Badge } from "../ui/badge";
 import CreatorActions from "./CreatorActions";
 import Link from "next/link";
 import { StatusBadge } from "./StatusBadge";
 
 
-export default async function CreatorList() {
-    const creatorData = await getAllCreators(); 
+export default function CreatorList({creatorData}: {creatorData: Creator[]}) {
   return (
     <>
       {creatorData.length === 0 ? (
