@@ -5,9 +5,14 @@ import { parseWithZod } from "@conform-to/zod";
 import { creatorSchema, editCreatorSchema } from "../zodSchemas";
 import { Database } from "@/types/database"
 import { revalidatePath } from "next/cache";
+import EmailService from "../resend";
 
 export type Creator = Database["public"]["Tables"]["creators"]["Row"]
 
+export type ActiveCreator = Pick<
+  Creator,
+  "id" | "full_name" | "follower_count" | "engagement_rate" | "platform" | "tier"
+>;
 
 export async function addCreatorAction(prevState: any, formData: FormData) {
     const supabase = await createClient()
@@ -47,6 +52,13 @@ export async function addCreatorAction(prevState: any, formData: FormData) {
         console.error("error adding creator inside addCreatorAction: ",error)
         throw new Error(error.message)
     }
+
+    // 📧 SEND EMAIL
+    const emailService = new EmailService();
+    await emailService.addNewCreatorEmail(
+        "souvik741156@gmail.com",
+        submission.value.full_name
+    );
 
     redirect("/dashboard/creators")
 }
@@ -193,4 +205,29 @@ export async function updateCreatorStatus(id: string, status: string) {
     }
     
     revalidatePath("/dashboard/creators");
+}
+
+export async function getActiveCreators() {
+    const supabase = await createClient()
+
+    const {
+        data: { user }
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+        redirect("/sign-in")
+    }
+
+    const { data, error } = await supabase
+        .from("creators")
+        .select("id, full_name, follower_count, engagement_rate, platform, tier")
+        .eq("user_id", user.id)
+        .eq("contract_status", "active")
+        .order("created_at", { ascending: false })
+
+    if (error) {
+        throw new Error(error.message)
+    }
+
+    return data
 }

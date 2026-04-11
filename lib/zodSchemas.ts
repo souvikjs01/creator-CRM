@@ -91,3 +91,29 @@ export const editCreatorSchema = z.object({
     rate: z.number().min(0, "Rate must be positive").optional(),
     notes: z.string().max(500, "Notes cannot exceed 500 characters").optional()
 });
+
+
+// add campaign
+export const addCampaignSchema = z.object({
+    campaign_name: z.string().min(3).max(100),
+    goal: z.string().min(3),
+    budget: z.coerce.number().positive(),
+    start_date: z.coerce.date(),
+    end_date: z.coerce.date(),
+    status: z.enum(["planned", "active", "completed", "cancelled"]),
+    cpa: z.coerce.number(),
+    deliverables: z.string().min(3).max(100),
+    notes: z.string().optional(),
+    total_reach: z.coerce.number().optional(),
+    total_conversions: z.coerce.number().optional(),
+}).refine((data) => data.end_date > data.start_date, {
+    message: "End date must be after start date",
+    path: ["end_date"]
+});
+
+export enum CampaignStatus {
+    PLANNED = "planned",
+    ACTIVE = "active",
+    COMPLETED = "completed",
+    CANCELLED = "cancelled",
+}
